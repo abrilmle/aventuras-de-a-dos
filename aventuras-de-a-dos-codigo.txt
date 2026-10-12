@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aventuras de a dos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#efe2c3;--bg2:#e4d2a8;--card:#fbf4e0;--ink:#33241a;--mute:#6f5a45;--line:#cdb68a;--fuego:#b8402a;--agua:#2a78ad;--tierra:#4f7d36;--aire:#c89a22;--sky:#9fd0e6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b2430;--bg2:#141b25;--card:#243142;--ink:#f1e6cc;--mute:#b4bfcc;--line:#3b4d63;--fuego:#e8705a;--agua:#5db3e6;--tierra:#86bf64;--aire:#f0c554}}
+:root[data-theme="dark"]{--bg:#1b2430;--bg2:#141b25;--card:#243142;--ink:#f1e6cc;--mute:#b4bfcc;--line:#3b4d63;--fuego:#e8705a;--agua:#5db3e6;--tierra:#86bf64;--aire:#f0c554}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--ink);font:400 17px/1.55 Nunito,system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:Cinzel,Georgia,serif;margin:0;line-height:1.2}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px 60px}
+header{text-align:center;padding:34px 0 18px}
+.els{display:flex;justify-content:center;gap:10px;margin-bottom:14px}
+.els span{width:44px;height:44px;border-radius:50% 50% 50% 8px;display:grid;place-items:center;font-size:22px;color:#fff;transform:rotate(-8deg)}
+.els span:nth-child(2){border-radius:50% 8px 50% 50%}.els span:nth-child(3){border-radius:8px 50% 50% 50%}.els span:nth-child(4){border-radius:50% 50% 8px 50%}
+h1{font-size:clamp(2rem,7vw,3.4rem);font-weight:900;letter-spacing:.02em}
+header p{max-width:560px;margin:10px auto 0;color:var(--mute);font-size:1.05rem}
+.theme{position:absolute;right:14px;top:calc(12px + env(safe-area-inset-top,0px));background:var(--card);border:2px solid var(--line);border-radius:999px;padding:6px 12px;font:700 14px Nunito,sans-serif;color:var(--ink);cursor:pointer}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--agua);outline-offset:2px}
+.pick{background:var(--card);border:3px solid var(--aire);border-radius:20px;padding:20px;text-align:center;margin:18px 0}
+.pick h2{font-size:1.3rem;margin-bottom:6px}
+.big{background:var(--fuego);color:#fff;border:0;border-radius:14px;padding:14px 26px;font:800 1.1rem Nunito,sans-serif;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.big:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+#res{min-height:2.4em;margin-top:14px;font:900 1.35rem Cinzel,serif}
+.bar{height:14px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0 4px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--agua),var(--tierra),var(--aire),var(--fuego));transition:width .4s}
+.prog{font-weight:700;color:var(--mute);font-size:.95rem}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.chip{background:transparent;border:2px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font:700 .95rem Nunito,sans-serif}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:2px solid var(--line);border-top:8px solid var(--c);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;transition:opacity .2s}
+.card.done{opacity:.6}
+.card.hl{outline:4px solid var(--aire);outline-offset:3px}
+.card h3{font-size:1.1rem}
+.card .tags{display:flex;gap:6px;flex-wrap:wrap;font-size:.85rem;font-weight:800}
+.tag{border-radius:8px;padding:2px 9px;background:var(--c);color:#fff}
+.tag.o{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.card p{margin:0}
+details{font-size:.97rem;color:var(--mute)}
+summary{cursor:pointer;font-weight:800;color:var(--ink)}
+.acts{display:flex;gap:8px;margin-top:auto;padding-top:6px}
+.acts button{flex:1;border:2px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:8px;font:800 .95rem Nunito,sans-serif}
+.acts button[aria-pressed="true"]{background:var(--tierra);border-color:var(--tierra);color:#fff}
+.acts .fv[aria-pressed="true"]{background:var(--fuego);border-color:var(--fuego)}
+h2.sec{font-size:1.6rem;margin:40px 0 4px}
+.sub{color:var(--mute);margin:0 0 14px}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.tool{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px;text-align:center}
+.tool h3{font-size:1.1rem;margin-bottom:10px}
+.out{min-height:5em;display:grid;place-items:center;font-weight:700;font-size:1.1rem;margin-bottom:12px}
+.sm{background:var(--agua);color:#fff;border:0;border-radius:12px;padding:10px 18px;font:800 1rem Nunito,sans-serif}
+.time{font:900 2.6rem Cinzel,serif;margin:2px 0 10px}
+.pre{display:flex;gap:6px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:20px}
+footer{text-align:center;color:var(--mute);margin-top:44px;font-size:.95rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<button class="theme" id="th" aria-label="Cambiar entre modo claro y oscuro">Claro / oscuro</button>
+<div class="wrap">
+<header>
+  <div class="els" aria-hidden="true"><span style="background:var(--fuego)">🔥</span><span style="background:var(--agua)">💧</span><span style="background:var(--tierra)">🌱</span><span style="background:var(--aire)">🌬️</span></div>
+  <h1>Aventuras de a dos</h1>
+  <p>Veinte planes para hacer en pareja en Pilar, adentro o afuera de casa, con poca plata o ninguna. Elegí uno, o dejá que el destino decida.</p>
+</header>
+
+<section class="pick" aria-live="polite">
+  <h2>¿No saben qué hacer?</h2>
+  <button class="big" id="rnd">Sorprendeme</button>
+  <div id="res"></div>
+</section>
+
+<div class="prog" id="pt"></div>
+<div class="bar" role="progressbar" aria-label="Planes cumplidos" aria-valuemin="0" aria-valuemax="100"><i id="pb"></i></div>
+
+<div class="filters" id="fl" role="group" aria-label="Filtros"></div>
+<div class="grid" id="g"></div>
+
+<h2 class="sec">Para usar durante los planes</h2>
+<p class="sub">Pequeñas herramientas para acompañar las ideas.</p>
+<div class="tools">
+  <div class="tool"><h3>Preguntas para charlar</h3><div class="out" id="qo">Tocá el botón para sacar una pregunta.</div><button class="sm" id="qb">Otra pregunta</button></div>
+  <div class="tool"><h3>Consignas de fotos</h3><div class="out" id="po">Ideal para el paseo o la sesión de fotos.</div><button class="sm" id="pb2">Nueva consigna</button></div>
+  <div class="tool"><h3>Temporizador</h3><div class="time" id="tm">10:00</div>
+    <div class="pre" id="pre"></div>
+    <button class="sm" id="ts">Empezar</button> <button class="sm" id="tr" style="background:var(--mute)">Reiniciar</button></div>
+  <div class="tool"><h3>Cara o cruz</h3><div class="out" id="co">¿Quién elige el próximo plan?</div><button class="sm" id="cb">Tirar la moneda</button></div>
+</div>
+<footer>Hecho para pasarla bien juntos. Revisá el clima antes de salir y cuidá el presupuesto del día.</footer>
+</div>
+
+<script>
+const A=[
+{t:"Picnic al atardecer",e:"tierra",w:"afuera",c:"Poco $",i:"🧺",d:"Llevá una manta, mate, algo para picar y buscá una plaza o parque cercano para ver cómo cae el sol.",s:"Armen la merienda con lo que ya tengan en casa. Lleven una bolsa para la basura y algo de abrigo para cuando refresque."},
+{t:"Caminata por el centro de Pilar",e:"tierra",w:"afuera",c:"Gratis",i:"🚶",d:"Recorran calles y plazas sin apuro, con auriculares compartidos o charlando de lo que vean.",s:"Pongan una regla: cada vez que doblen una esquina, elige otra persona. Terminen en un lugar donde nunca hayan entrado."},
+{t:"Noche de cocina juntos",e:"fuego",w:"casa",c:"Poco $",i:"🍕",d:"Pizza casera, pastas o empanadas. Cada uno prepara una parte y después se lo comen en la mesa con velas.",s:"Elijan la receta juntos y repártanse las tareas: uno amasa, el otro prepara el relleno o la salsa."},
+{t:"Cine en casa con sorteo",e:"aire",w:"casa",c:"Gratis",i:"🎬",d:"Cada uno escribe tres películas en papelitos y sacan una al azar. Sumen pochoclos o tostadas.",s:"Armen un cine con almohadones, luces tenues y el celular en modo no molestar."},
+{t:"Torneo de juegos de mesa o cartas",e:"fuego",w:"casa",c:"Gratis",i:"🃏",d:"Truco, generala, chinchón o dominó. Quien pierda hace los mates o lava los platos.",s:"Lleven un marcador de puntos para toda la serie y definan un premio simbólico para quien gane."},
+{t:"Mates y charla profunda",e:"agua",w:"casa",c:"Gratis",i:"🧉",d:"Un rato sin pantallas, con mates y preguntas que no suelen hacerse en el día a día.",s:"Usen las preguntas de abajo en la página. Cada uno responde y escucha sin interrumpir."},
+{t:"Salida de fotos con consignas",e:"aire",w:"afuera",c:"Gratis",i:"📸",d:"Salgan a sacar diez fotos siguiendo consignas: algo azul, una sombra, una textura, algo que los haga reír.",s:"Usen el generador de consignas de abajo. Al final elijan sus tres favoritas."},
+{t:"Cápsula del tiempo",e:"agua",w:"casa",c:"Gratis",i:"📦",d:"Guarden en una caja cartas, entradas, fotos y predicciones, y pónganle fecha de apertura.",s:"Escríbanse una carta para dentro de un año y anoten tres cosas que quieran lograr juntos."},
+{t:"Mirar las estrellas",e:"tierra",w:"afuera",c:"Gratis",i:"🌌",d:"Busquen un lugar oscuro, acuéstense en una manta y encuentren constelaciones o satélites.",s:"Una app gratuita de mapa estelar ayuda a reconocerlas. Lleven algo caliente para tomar."},
+{t:"Mini olimpíadas en casa",e:"fuego",w:"casa",c:"Gratis",i:"🏅",d:"Pruebas absurdas: puntería con medias, equilibrio, carrera de obstáculos, quién aguanta más la plancha.",s:"Anoten los puntos y definan un título de campeón del día con una medalla de papel."},
+{t:"Retratos a ciegas",e:"aire",w:"casa",c:"Gratis",i:"✏️",d:"Dibújense mutuamente sin mirar el papel y comparen los resultados entre carcajadas.",s:"Una hoja, una lapicera y tres minutos por dibujo. Cuelguen el mejor en la heladera."},
+{t:"Spa casero",e:"agua",w:"casa",c:"Poco $",i:"🧖",d:"Mascarillas caseras, masajes de manos y música suave para desconectar de la semana.",s:"Una mascarilla simple de avena con yogur y miel. Prendan una vela y bajen las luces."},
+{t:"Playlist y baile en el living",e:"aire",w:"casa",c:"Gratis",i:"💃",d:"Armen una lista con cinco canciones de cada uno y bailen todo, aunque no sepan bailar.",s:"Cada uno cuenta por qué eligió sus canciones. Guarden la lista para compartirla."},
+{t:"Alfajores o budín casero",e:"fuego",w:"casa",c:"Poco $",i:"🍪",d:"Hornear algo dulce juntos y comerlo todavía tibio con un café o un mate.",s:"Elijan una receta de pocos ingredientes. Pueden guardar un poco para llevarle a alguien."},
+{t:"Exploración sorpresa en colectivo",e:"tierra",w:"afuera",c:"Poco $",i:"🚌",d:"Suban a un colectivo al azar, bájense en una parada que les guste y exploren los alrededores.",s:"Fijen un presupuesto y una hora de regreso. Anoten un lugar nuevo para volver a visitar."},
+{t:"Escape room casero",e:"fuego",w:"casa",c:"Gratis",i:"🗝️",d:"Cada uno prepara tres acertijos o pistas escondidas para el otro, y después los resuelven contra reloj.",s:"Usen papelitos, objetos de la casa y un candado de valija si tienen. Pueden usar el temporizador de abajo."},
+{t:"Aprender algo nuevo juntos",e:"aire",w:"casa",c:"Gratis",i:"🎓",d:"Elijan una habilidad y aprendan con un tutorial gratuito: origami, malabares, una coreografía o frases en otro idioma.",s:"Dediquen media hora y al final muéstrense lo que lograron. No importa si sale mal, es parte de la gracia."},
+{t:"Álbum de recuerdos",e:"agua",w:"casa",c:"Gratis",i:"📖",d:"Elijan sus fotos favoritas y armen un collage o álbum digital con una frase para cada una.",s:"Pueden usar revistas viejas, hojas y pegamento, o una app gratuita de collage. Cada foto lleva la historia de ese día."},
+{t:"Feria y cocina con presupuesto",e:"tierra",w:"afuera",c:"Poco $",i:"🥕",d:"Salgan a una feria o verdulería con un monto fijo y cocinen algo con lo que compren.",s:"Pónganse un tope de plata y un ingrediente sorpresa elegido por la otra persona. Después cocinen juntos."},
+{t:"Tarde solidaria",e:"agua",w:"afuera",c:"Gratis",i:"🐾",d:"Acerquen ropa, alimento o una mano a un refugio de animales o a un comedor cercano.",s:"Consulten primero qué necesitan y en qué horarios reciben ayuda. Revisen juntos el placard para ver qué pueden donar."}
+];
+const EL={fuego:["🔥","Fuego","var(--fuego)"],agua:["💧","Agua","var(--agua)"],tierra:["🌱","Tierra","var(--tierra)"],aire:["🌬️","Aire","var(--aire)"]};
+const Q=["¿Cuál fue el momento más lindo que pasamos juntos?","¿Qué te gustaría que hagamos dentro de cinco años?","¿Qué cosa pequeña que hago te hace sentir querido?","¿A qué lugar del mundo te gustaría que viajáramos?","¿Qué te dio miedo y después te salió bien?","¿Qué te gustaba hacer de chico que ya no hacés?","¿Qué aprendiste de nosotros este año?","Si tuviéramos un día libre sin gastar nada, ¿qué harías?","¿Qué canción te recuerda a nosotros?","¿Qué sueño tenés que todavía no le contaste a nadie?","¿Qué hábito te gustaría que armemos juntos?","¿Cuál es tu recuerdo favorito de tu familia?","¿Qué te hace sentir en casa?","¿En qué momento sentiste que nos entendíamos sin hablar?","¿Qué es lo más valiente que hiciste?"];
+const P=["Algo azul","Una sombra interesante","Una textura que dé ganas de tocar","Algo que los haga reír","Una foto de sus manos juntas","Un reflejo","Algo muy pequeño","Un detalle del lugar donde viven","Una selfie sin mirar la cámara","Algo que parezca una cara","El mejor cielo del día","Un color que no combine con nada"];
+let st={done:{},fav:{}};
+try{const x=JSON.parse(localStorage.getItem("ad2")||"null");if(x)st=x}catch(e){}
+const sv=()=>{try{localStorage.setItem("ad2",JSON.stringify(st))}catch(e){}};
+const $=id=>document.getElementById(id);
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+let F={w:"todas",c:"todas",p:false};
+const FL=[["w","todas","Todos"],["w","casa","En casa"],["w","afuera","Afuera"],["c","Gratis","Gratis"],["c","Poco $","Poco dinero"],["p","x","Pendientes"]];
+function filt(){return A.map((a,n)=>({...a,n})).filter(a=>(F.w=="todas"||a.w==F.w)&&(F.c=="todas"||a.c==F.c)&&(!F.p||!st.done[a.n]))}
+function chips(){$("fl").innerHTML="";FL.forEach(([k,v,l])=>{const b=document.createElement("button");b.className="chip";
+const on=k=="p"?F.p:(F[k]==v);b.setAttribute("aria-pressed",on);b.textContent=l;
+b.onclick=()=>{if(k=="p")F.p=!F.p;else if(k=="w")F.w=v;else F.c=F.c==v?"todas":v;chips();draw()};$("fl").appendChild(b)})}
+function draw(){const g=$("g");const L=filt();g.innerHTML=L.length?"":'<div class="empty">No hay planes con estos filtros. Probá con otra combinación.</div>';
+L.forEach(a=>{const [ic,nm,col]=EL[a.e];const d=document.createElement("article");d.className="card"+(st.done[a.n]?" done":"");d.id="c"+a.n;d.style.setProperty("--c",col);
+d.innerHTML=`<h3>${a.i} ${a.t}</h3><div class="tags"><span class="tag">${ic} ${nm}</span><span class="tag o">${a.w=="casa"?"En casa":"Afuera"}</span><span class="tag o">${a.c}</span></div><p>${a.d}</p><details><summary>Cómo hacerlo</summary><p>${a.s}</p></details><div class="acts"><button class="dn" aria-pressed="${!!st.done[a.n]}">${st.done[a.n]?"Hecho ✓":"Marcar hecho"}</button><button class="fv" aria-pressed="${!!st.fav[a.n]}" aria-label="Favorito">${st.fav[a.n]?"♥":"♡"}</button></div>`;
+d.querySelector(".dn").onclick=()=>{st.done[a.n]=!st.done[a.n];sv();draw();prog()};
+d.querySelector(".fv").onclick=()=>{st.fav[a.n]=!st.fav[a.n];sv();draw()};
+g.appendChild(d)})}
+function prog(){const n=Object.values(st.done).filter(Boolean).length;$("pt").textContent=`Planes cumplidos: ${n} de ${A.length}`;$("pb").style.width=(n/A.length*100)+"%";document.querySelector(".bar").setAttribute("aria-valuenow",Math.round(n/A.length*100))}
+$("rnd").onclick=()=>{const pool=A.map((a,n)=>({...a,n})).filter(a=>!st.done[a.n]);const L=pool.length?pool:A.map((a,n)=>({...a,n}));
+let k=0;const iv=setInterval(()=>{$("res").textContent=rnd(L).t;if(++k>12){clearInterval(iv);const f=rnd(L);$("res").textContent=f.i+" "+f.t;
+F={w:"todas",c:"todas",p:false};chips();draw();const el=$("c"+f.n);if(el){el.classList.add("hl");el.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>el.classList.remove("hl"),3000)}}},90)};
+$("qb").onclick=()=>$("qo").textContent=rnd(Q);
+$("pb2").onclick=()=>$("po").textContent=rnd(P);
+$("cb").onclick=()=>{$("co").textContent="Girando…";setTimeout(()=>$("co").textContent=Math.random()<.5?"Cara: elige quien tiró la moneda":"Cruz: elige la otra persona",600)};
+let secs=600,run=null;const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+[5,10,15,30].forEach(m=>{const b=document.createElement("button");b.className="chip";b.textContent=m+" min";b.onclick=()=>{clearInterval(run);run=null;secs=m*60;$("tm").textContent=fmt(secs);$("ts").textContent="Empezar"};$("pre").appendChild(b)});
+$("ts").onclick=()=>{if(run){clearInterval(run);run=null;$("ts").textContent="Seguir";return}
+if(secs<=0)return;$("ts").textContent="Pausar";run=setInterval(()=>{secs--;$("tm").textContent=fmt(Math.max(secs,0));if(secs<=0){clearInterval(run);run=null;$("tm").textContent="¡Tiempo!";$("ts").textContent="Empezar";try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}},1000)};
+$("tr").onclick=()=>{clearInterval(run);run=null;secs=600;$("tm").textContent="10:00";$("ts").textContent="Empezar"};
+$("th").onclick=()=>{const r=document.documentElement;const dk=r.dataset.theme?r.dataset.theme=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=dk?"light":"dark"};
+chips();draw();prog();
+</script>
+</body>
+</html>
